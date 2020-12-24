@@ -47,12 +47,23 @@ class ProductsProvider extends ChangeNotifier {
     return products.where((product) => product.isFavorite).toList();
   }
 
-  void addProduct() {
-    // products.add();
+  void addProduct(Product newProduct) {
+    newProduct = Product(
+        id: DateTime.now().toString(),
+        title: newProduct.title,
+        description: newProduct.title,
+        price: newProduct.price,
+        imageUrl: newProduct.imageUrl);
+    products.add(newProduct);
     notifyListeners();
   }
 
   Product findById(String id) {
     return products.firstWhere((product) => product.id == id);
+  }
+
+  void updateProduct(String id, Product newProduct) {
+    int index = products.indexWhere((element) => element.id == id);
+    products[index] = newProduct;
   }
 }
